@@ -46,6 +46,7 @@ public class UserController {
         return "redirect:/welcome";
     }
 
+
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (error != null)
