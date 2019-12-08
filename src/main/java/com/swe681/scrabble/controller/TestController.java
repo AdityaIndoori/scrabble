@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -48,7 +48,23 @@ public class TestController {
         }
         return "Server says: " + requestBody + "\nUser: " + userName;
     }
-
+    
+    
+    
+    
+//    @PostMapping(value = "/test")
+//    public ModelAndView test(@RequestBody String requestBody) {
+//        log.info("I am in test-----------------------------");
+//        
+//        return new ModelAndView("message.jsp");
+//    }
+    
+    
+    
+    
+    
+    
+    
     //------------------new registration
     @PostMapping(value = "/aditya/register", consumes = "application/json", produces = "application/json")
     public String registration1(@RequestBody String requestBody) {

@@ -31,8 +31,12 @@
         <button class="btn btn-lg btn-primary btn-block" onclick="joinClick();">Join Game</button>
 
         <button class="btn btn-lg btn-primary btn-block" onclick="submitClick();">Test Button</button>
+        
+        <%-- <button class="btn btn-lg btn-primary btn-block"><a href="${contextPath}/test/123">Chat Button</a></button> --%>
+        <button class="btn btn-lg btn-primary btn-block" onclick="chatClick();">Chat Button</button>
 
     </c:if>
   </div>
 </body>
 </html>
+

@@ -4,16 +4,23 @@ import com.swe681.scrabble.model.User;
 import com.swe681.scrabble.service.SecurityService;
 import com.swe681.scrabble.service.UserService;
 import com.swe681.scrabble.validation.UserValidator;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@Slf4j
 public class UserController {
     @Autowired
     private UserService userService; //Instance of user's database
@@ -62,4 +69,13 @@ public class UserController {
     public String welcome(Model model) {
         return "welcome";
     }
+    
+    
+    @GetMapping("/welcome/test/{id}")
+    public String test(Model model, @PathVariable String id) {
+        log.info("I am in test--------- where id is --------------------"+id);
+        
+        return "message";
+    }
+    
 }

@@ -17,3 +17,10 @@ function submitClick(){
 function logoutClick(){
     document.forms['logoutForm'].submit()
 }
+
+
+
+function chatClick(){
+	window.location.href = window.location.href+"/test/12";
+}
+
