@@ -14,6 +14,10 @@ function submitClick(){
             http.send(params);
         }
 
+function startGame(){
+    document.location.href = "https://localhost:8443/startgame/";
+}
+
 function logoutClick(){
     document.forms['logoutForm'].submit()
 }
