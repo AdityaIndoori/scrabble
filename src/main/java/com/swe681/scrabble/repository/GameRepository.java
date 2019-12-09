@@ -10,5 +10,5 @@ import java.util.List;
 public interface GameRepository extends JpaRepository<Game, Long> {
     List<Game> findByPlayer1OrPlayer2AndStatus(String player1, String player2, GameStatus status);
 
-
+    List<Game> findByStatus(GameStatus status);
 }

@@ -35,7 +35,8 @@
         <%-- <button class="btn btn-lg btn-primary btn-block"><a href="${contextPath}/test/123">Chat Button</a></button> --%>
         <button class="btn btn-lg btn-primary btn-block" onclick="chatClick();">Chat Button</button>
 
-    </c:if>
+        <%-- <h2><%=if(session.getAttribute("error").equals("null"))return "";else return session.getAttribute("error");%></h2> --%>
+        </c:if>
   </div>
 </body>
 </html>

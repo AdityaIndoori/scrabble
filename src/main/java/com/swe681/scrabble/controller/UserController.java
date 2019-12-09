@@ -77,7 +77,7 @@ public class UserController {
     }
     
     
-    @GetMapping("/welcome/test/{id}")
+    @GetMapping({"/welcome/test/{id}", "/test/{id}"})
     public String test(Model model, @PathVariable String id) {
         log.info("I am in test--------- where id is --------------------"+id);
         

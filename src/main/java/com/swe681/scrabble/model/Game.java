@@ -54,5 +54,6 @@ public class Game {
     private String player2;
 
     @Nullable
+    @Enumerated(EnumType.STRING)
     private GameStatus status;
 }

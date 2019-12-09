@@ -18,6 +18,10 @@ function startGame(){
     document.location.href = "https://localhost:8443/startgame/";
 }
 
+function joinGame(){
+    document.location.href = "https://localhost:8443/joingame/";
+}
+
 function logoutClick(){
     document.forms['logoutForm'].submit()
 }
@@ -25,6 +29,11 @@ function logoutClick(){
 
 
 function chatClick(){
-	window.location.href = window.location.href+"/test/12";
+    console.log("URL: " + window.location.href);
+    var url = window.location.href;
+    if(url.endsWith("/"))
+	    window.location.href = window.location.href+"test/12";
+    else
+        window.location.href = window.location.href+"/test/12";
 }
 
