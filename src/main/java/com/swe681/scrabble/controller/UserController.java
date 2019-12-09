@@ -7,6 +7,8 @@ import com.swe681.scrabble.validation.UserValidator;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @Slf4j
 public class UserController {
+	
+	@Autowired
+	HttpSession httpSession;
+	
     @Autowired
     private UserService userService; //Instance of user's database
 
@@ -76,6 +82,19 @@ public class UserController {
         log.info("I am in test--------- where id is --------------------"+id);
         
         return "message";
+    }
+    
+    
+    
+    
+    @GetMapping("/welcome/test1")
+    public String test1(Model model) {
+        log.info("I am in test----------------------------");
+        
+        httpSession.setAttribute("test123", "value");
+        
+        
+        return "test";
     }
     
 }

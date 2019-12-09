@@ -51,20 +51,6 @@ public class TestController {
     
     
     
-    
-//    @PostMapping(value = "/test")
-//    public ModelAndView test(@RequestBody String requestBody) {
-//        log.info("I am in test-----------------------------");
-//        
-//        return new ModelAndView("message.jsp");
-//    }
-    
-    
-    
-    
-    
-    
-    
     //------------------new registration
     @PostMapping(value = "/aditya/register", consumes = "application/json", produces = "application/json")
     public String registration1(@RequestBody String requestBody) {
