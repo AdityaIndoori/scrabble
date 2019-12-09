@@ -1,3 +1,7 @@
+setTimeout(function() {
+    $("#error").hide();
+}, 3000);
+
 function submitClick(){
             var token = $("input[name='_csrf']").val();
             var http = new XMLHttpRequest();
@@ -32,8 +36,7 @@ function chatClick(){
     console.log("URL: " + window.location.href);
     var url = window.location.href;
     if(url.endsWith("/"))
-	    window.location.href = window.location.href+"test/12";
+	    window.location.href = window.location.href+"websocket/chat";
     else
-        window.location.href = window.location.href+"/test/12";
+        window.location.href = window.location.href+"/websocket/chat";
 }
-

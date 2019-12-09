@@ -3,6 +3,7 @@ package com.swe681.scrabble.controller;
 import com.swe681.scrabble.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
@@ -21,7 +22,8 @@ public class GameController {
         try {
             Long id = gameService.startGame();
             httpSession.setAttribute("gameid",String.valueOf(id));
-            return "gameUI";
+            httpSession.setAttribute("error","");
+            return "redirect:/gameui";
         } catch (Exception e) {
             httpSession.setAttribute("error","There was an error, please try again");
             return "redirect:/welcome";
@@ -33,11 +35,16 @@ public class GameController {
         try {
             Long id = gameService.joinGame();
             httpSession.setAttribute("gameid",String.valueOf(id));
-            return "gameUI";
+            httpSession.setAttribute("error","");
+            return "redirect:/gameui";
         } catch (Exception e) {
             httpSession.setAttribute("error","There was an error, please try again");
             return "redirect:/welcome";
         }
     }
 
+    @GetMapping({"/gameui"})
+    public String gameUI(Model model) {
+        return "gameUI";
+    }
 }
