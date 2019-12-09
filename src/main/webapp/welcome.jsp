@@ -20,15 +20,15 @@
 
         <button class="btn btn-lg btn-primary btn-block" onclick="logoutClick()">Logout</button>
 
-        <h2>Welcome ${pageContext.request.userPrincipal.name}>Logout</a></h2>
+        <h2>Welcome ${pageContext.request.userPrincipal.name}</h2>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="leaderBoardClick();">Show Leaderboard</button>
+        <button class="btn btn-lg btn-primary btn-block" onclick="showLeaderBoard();">Show Leaderboard</button>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="movesClick();">Show Moves</button>
+        <button class="btn btn-lg btn-primary btn-block" onclick="showMoves();">Show Moves</button>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="gameClick();">Start Game</button>
+        <button class="btn btn-lg btn-primary btn-block" onclick="startGame();">Start Game</button>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="joinClick();">Join Game</button>
+        <button class="btn btn-lg btn-primary btn-block" onclick="joinGame();">Join Game</button>
 
         <button class="btn btn-lg btn-primary btn-block" onclick="submitClick();">Test Button</button>
         
