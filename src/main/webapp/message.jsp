@@ -21,7 +21,10 @@
                 stompClient.connect({}, function(frame) {
                     setConnected(true);
                     console.log('Connected: ' + frame);
-                    stompClient.subscribe('/topic/messages', function(messageOutput) {
+                    
+                    var gameid = <%= session.getAttribute("gameid") %>;
+                    
+                    stompClient.subscribe('/topic/'+gameid, function(messageOutput) {
                         showMessageOutput(JSON.parse(messageOutput.body));
                     });
                 });
@@ -38,7 +41,10 @@
             function sendMessage() {
                 var from = document.getElementById('from').value;
                 var text = document.getElementById('text').value;
-                stompClient.send("/app/chat", {}, 
+                
+                var gameid = <%= session.getAttribute("gameid") %>;
+                
+                stompClient.send("/app/chat/"+gameid, {}, 
                   JSON.stringify({'from':from, 'text':text}));
             }
              
