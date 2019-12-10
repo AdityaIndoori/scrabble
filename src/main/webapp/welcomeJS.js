@@ -36,11 +36,15 @@ function showLeaderBoard(){
     http.onreadystatechange = function() {//Call a function when the state changes.
         if(http.readyState == 4 && http.status == 200) {
             //alert(http.responseText); TODO: Get response from leaderBoard API and show in a table
-            console.log("Leaderboard JSON: "+responseText);
-            buildHtmlTable('#leaderboard');
+            console.log("Leaderboard JSON: "+http.responseText);
+            var myList = http.responseText;
+            console.log("My List: "+myList + "\n Length="+ myList.length);
+            var myList2 = JSON.parse(myList);
+            console.log("My List After trim: ", myList2.length);
+            buildHtmlTable(myList2, '#leaderboard');
         }
     }
-    http.send(params);
+    http.send();
 }
 
 function showMoves(){
@@ -59,7 +63,8 @@ function chatClick(){
         window.location.href = window.location.href+"/websocket/chat";
 }
 
-function buildHtmlTable(tableID) {
+function buildHtmlTable(myList, tableID) {
+    console.log("Inside buildHtml = "+ myList);
      var columns = addAllColumnHeaders(myList, tableID);
 
      for (var i = 0 ; i < myList.length ; i++) {
@@ -79,20 +84,20 @@ function buildHtmlTable(tableID) {
  // Need to do union of keys from all records as some records may not contain
  // all records
  function addAllColumnHeaders(myList, tableID)
- {
-     var columnSet = [];
-     var headerTr$ = $('<tr/>');
+  {
+      var columnSet = [];
+      var headerTr$ = $('<tr/>');
 
-     for (var i = 0 ; i < myList.length ; i++) {
-         var rowHash = myList[i];
-         for (var key in rowHash) {
-             if ($.inArray(key, columnSet) == -1){
-                 columnSet.push(key);
-                 headerTr$.append($('<th/>').html(key));
-             }
-         }
-     }
-     $(tableID).append(headerTr$);
+      for (var i = 0 ; i < myList.length ; i++) {
+          var rowHash = myList[i];
+          for (var key in rowHash) {
+              if ($.inArray(key, columnSet) == -1){
+                  columnSet.push(key);
+                  headerTr$.append($('<th/>').html(key));
+              }
+          }
+      }
+      $(tableID).append(headerTr$);
 
-     return columnSet;
- }
+      return columnSet;
+  }
