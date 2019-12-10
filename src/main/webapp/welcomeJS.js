@@ -27,6 +27,10 @@ function joinGame(){
 }
 
 function showLeaderBoard(){
+	
+	// To clear up previously rendered table 
+	$("#leaderboard tr").remove(); 
+	
     var token = $("input[name='_csrf']").val();
     var http = new XMLHttpRequest();
     var url = 'https://localhost:8443/leaderboard/';
@@ -45,9 +49,14 @@ function showLeaderBoard(){
         }
     }
     http.send();
+    
+    document.getElementById('leaderdiv').style.display = "block";
 }
 
 function showGameIDs(){
+	// To clear up previously rendered table 
+	$("#gamelist tr").remove(); 
+	
     var token = $("input[name='_csrf']").val();
     var http = new XMLHttpRequest();
     var url = 'https://localhost:8443/gamelist/';
@@ -66,9 +75,15 @@ function showGameIDs(){
         }
     }
     http.send();
+    
+    document.getElementById('gamelistdiv').style.display = "block";
 }
 
 function showMoves(gameID){
+	// To clear up previously rendered table 
+	$("#moveslist tr").remove(); 
+	
+	
     console.log("Game ID when selected: "+gameID);
 
     var token = $("input[name='_csrf']").val();
@@ -89,6 +104,8 @@ function showMoves(gameID){
         }
     }
     http.send();
+    
+    document.getElementById('movelistdiv').style.display = "block";
 }
 
 function logoutClick(){
@@ -105,6 +122,7 @@ function chatClick(){
 }
 
 function buildHtmlTable(myList, tableID) {
+	
     console.log("Inside buildHtml = "+ myList);
      var columns = addAllColumnHeaders(myList, tableID);
 

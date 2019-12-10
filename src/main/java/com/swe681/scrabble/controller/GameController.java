@@ -25,7 +25,7 @@ public class GameController {
             httpSession.setAttribute("error","");
             return "redirect:/gameui";
         } catch (Exception e) {
-            httpSession.setAttribute("error","There was an error, please try again");
+            httpSession.setAttribute("error","error");
             return "redirect:/welcome";
         }
     }
@@ -38,7 +38,7 @@ public class GameController {
             httpSession.setAttribute("error","");
             return "redirect:/gameui";
         } catch (Exception e) {
-            httpSession.setAttribute("error","There was an error, please try again");
+            httpSession.setAttribute("error","error");
             return "redirect:/welcome";
         }
     }
