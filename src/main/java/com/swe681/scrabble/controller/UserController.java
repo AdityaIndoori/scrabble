@@ -77,24 +77,13 @@ public class UserController {
     }
     
     
-    @GetMapping({"/welcome/test/{id}", "/test/{id}"})
-    public String test(Model model, @PathVariable String id) {
-        log.info("I am in test--------- where id is --------------------"+id);
-        
+    @GetMapping({"/welcome/websocket/chat", "/websocket/chat"})
+    public String test(Model model) {
+        return "redirect:/chat";
+    }
+
+    @GetMapping({"/chat"})
+    public String chat(Model model) {
         return "message";
     }
-    
-    
-    
-    
-    @GetMapping("/welcome/test1")
-    public String test1(Model model) {
-        log.info("I am in test----------------------------");
-        
-        httpSession.setAttribute("test123", "value");
-        
-        
-        return "test";
-    }
-    
 }
