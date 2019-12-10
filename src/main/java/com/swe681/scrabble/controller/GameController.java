@@ -45,6 +45,10 @@ public class GameController {
 
     @GetMapping({"/gameui"})
     public String gameUI(Model model) {
+        if(httpSession.getAttribute("gameid")==null){
+            httpSession.setAttribute("error","error");
+            return "redirect:/welcome";
+        }
         return "gameUI";
     }
 }
