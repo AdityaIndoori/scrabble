@@ -1,5 +1,6 @@
 package com.swe681.scrabble.controller;
 
+import com.swe681.scrabble.model.Message;
 import com.swe681.scrabble.model.User;
 import com.swe681.scrabble.service.SecurityService;
 import com.swe681.scrabble.service.UserService;
@@ -14,7 +15,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -30,13 +33,14 @@ public class TestController {
     @GetMapping(value = "/aditya", produces = "application/json")
     public String aditya() {
     	String userName = "Not logged in";
-        if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
+    	if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (principal instanceof UserDetails) {
                 userName = ((UserDetails)principal).getUsername();
             }
         }
         return "Server says: In get Request" + "\nUser: " + userName;
+
     }
 
     @PostMapping(value = "/aditya")
@@ -51,8 +55,6 @@ public class TestController {
         }
         return "Server says: In post request " + requestBody + "\nUser: " + userName;
     }
-    
-    
     
     //------------------new registration
     @PostMapping(value = "/aditya/register", consumes = "application/json", produces = "application/json")
@@ -94,6 +96,28 @@ public class TestController {
                 return new ResponseEntity<String>("{\"Error\":\"No such page\"}", HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value = "/aditya2", produces = "application/json")
+    public ResponseEntity<List<Message>> aditya2() {
+        try {
+            List<Message> list = new ArrayList<>();
+            Message msg1 = new Message();
+            msg1.setFrom("from1");
+            msg1.setText("text1");
+
+            Message msg2 = new Message();
+            msg2.setFrom("from2");
+            msg2.setText("text2");
+
+            list.add(msg1);
+            list.add(msg2);
+
+            return new ResponseEntity<>(list, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

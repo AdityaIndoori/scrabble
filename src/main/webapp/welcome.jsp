@@ -7,8 +7,8 @@
 <head>
     <meta charset="utf-8">
     <title>Create an account</title>
-    <script src="welcomeJS.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="welcomeJS.js"></script>
 </head>
 <body>
   <div class="container">
@@ -31,7 +31,7 @@
         <button class="btn btn-lg btn-primary btn-block" onclick="joinGame();">Join Game</button>
 
         <button class="btn btn-lg btn-primary btn-block" onclick="submitClick();">Test Button</button>
-        
+
         <%-- <button class="btn btn-lg btn-primary btn-block"><a href="${contextPath}/test/123">Chat Button</a></button> --%>
 
         <button class="btn btn-lg btn-primary btn-block" onclick="chatClick();">Chat Button</button>
@@ -39,5 +39,7 @@
         <div id="error"><h2 style="color:red"><%=session.getAttribute("error")%></h2></div>
         </c:if>
   </div>
+        <h2>Leaderboard</h2><br>
+        <table id="leaderboard" border="1"></table>
 </body>
 </html>
