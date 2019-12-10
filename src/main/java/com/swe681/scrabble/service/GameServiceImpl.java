@@ -1,18 +1,20 @@
 package com.swe681.scrabble.service;
 
-import com.swe681.scrabble.model.Game;
-import com.swe681.scrabble.model.GameStatus;
-import com.swe681.scrabble.repository.GameRepository;
-import lombok.extern.slf4j.Slf4j;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
-import java.util.List;
+import com.swe681.scrabble.model.Game;
+import com.swe681.scrabble.model.GameStatus;
+import com.swe681.scrabble.repository.GameRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
@@ -87,4 +89,16 @@ public class GameServiceImpl implements GameService {
 
         return r%size;
     }
+    
+
+
+	@Override
+	public List<Game> findByStatus() throws Exception{
+		try {
+			List<Game> list = gameRepository.findByStatus(GameStatus.FINISHED);
+			return list;
+		}catch(Exception e) {
+			throw e;
+		}
+	} 
 }
