@@ -29,11 +29,14 @@ public class TestController {
 
     @GetMapping(value = "/aditya", produces = "application/json")
     public String aditya() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            return ((UserDetails) userDetails).getUsername();
+    	String userName = "Not logged in";
+        if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                userName = ((UserDetails)principal).getUsername();
+            }
         }
-        return "Greetings from Spring Boot!";
+        return "Server says: In get Request" + "\nUser: " + userName;
     }
 
     @PostMapping(value = "/aditya")
@@ -46,7 +49,7 @@ public class TestController {
                 userName = ((UserDetails)principal).getUsername();
             }
         }
-        return "Server says: " + requestBody + "\nUser: " + userName;
+        return "Server says: In post request " + requestBody + "\nUser: " + userName;
     }
     
     
