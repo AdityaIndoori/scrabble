@@ -26,11 +26,29 @@ function joinGame(){
     document.location.href = "https://localhost:8443/joingame/";
 }
 
+function showLeaderBoard(){
+    var token = $("input[name='_csrf']").val();
+    var http = new XMLHttpRequest();
+    var url = 'https://localhost:8443/leaderboard/';
+    http.open('GET', url, true);
+    http.setRequestHeader('X-CSRF-TOKEN', token);
+
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText); TODO: Get response from leaderBoard API and show in a table
+            console.log("Leaderboard JSON: "+responseText);
+            buildHtmlTable('#leaderboard');
+        }
+    }
+    http.send(params);
+}
+
+function showMoves(){
+
+}
 function logoutClick(){
     document.forms['logoutForm'].submit()
 }
-
-
 
 function chatClick(){
     console.log("URL: " + window.location.href);
@@ -40,3 +58,41 @@ function chatClick(){
     else
         window.location.href = window.location.href+"/websocket/chat";
 }
+
+function buildHtmlTable(tableID) {
+     var columns = addAllColumnHeaders(myList, tableID);
+
+     for (var i = 0 ; i < myList.length ; i++) {
+         var row$ = $('<tr/>');
+         for (var colIndex = 0 ; colIndex < columns.length ; colIndex++) {
+             var cellValue = myList[i][columns[colIndex]];
+
+             if (cellValue == null) { cellValue = ""; }
+
+             row$.append($('<td/>').html(cellValue));
+         }
+         $(tableID).append(row$);
+     }
+ }
+
+ // Adds a header row to the table and returns the set of columns.
+ // Need to do union of keys from all records as some records may not contain
+ // all records
+ function addAllColumnHeaders(myList, tableID)
+ {
+     var columnSet = [];
+     var headerTr$ = $('<tr/>');
+
+     for (var i = 0 ; i < myList.length ; i++) {
+         var rowHash = myList[i];
+         for (var key in rowHash) {
+             if ($.inArray(key, columnSet) == -1){
+                 columnSet.push(key);
+                 headerTr$.append($('<th/>').html(key));
+             }
+         }
+     }
+     $(tableID).append(headerTr$);
+
+     return columnSet;
+ }

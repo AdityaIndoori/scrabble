@@ -31,6 +31,8 @@
         <button class="btn btn-lg btn-primary btn-block" onclick="joinGame();">Join Game</button>
 
         <button class="btn btn-lg btn-primary btn-block" onclick="submitClick();">Test Button</button>
+
+        <table id="leaderboard" border="1"></table>
         
         <%-- <button class="btn btn-lg btn-primary btn-block"><a href="${contextPath}/test/123">Chat Button</a></button> --%>
 
