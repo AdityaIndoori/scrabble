@@ -47,9 +47,50 @@ function showLeaderBoard(){
     http.send();
 }
 
-function showMoves(){
+function showGameIDs(){
+    var token = $("input[name='_csrf']").val();
+    var http = new XMLHttpRequest();
+    var url = 'https://localhost:8443/gamelist/';
+    http.open('GET', url, true);
+    http.setRequestHeader('X-CSRF-TOKEN', token);
 
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText); TODO: Get response from leaderBoard API and show in a table
+            console.log("Leaderboard JSON: "+http.responseText);
+            var myList = http.responseText;
+            console.log("My List: "+myList + "\n Length="+ myList.length);
+            var myList2 = JSON.parse(myList);
+            console.log("My List After trim: ", myList2.length);
+            buildHtmlTable(myList2, '#gamelist');
+        }
+    }
+    http.send();
 }
+
+function showMoves(gameID){
+    console.log("Game ID when selected: "+gameID);
+
+    var token = $("input[name='_csrf']").val();
+    var http = new XMLHttpRequest();
+    var url = 'https://localhost:8443/gamemoves/'+gameID;
+    http.open('GET', url, true);
+    http.setRequestHeader('X-CSRF-TOKEN', token);
+
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText); TODO: Get response from leaderBoard API and show in a table
+            console.log("Leaderboard JSON: "+http.responseText);
+            var myList = http.responseText;
+            console.log("My List: "+myList + "\n Length="+ myList.length);
+            var myList2 = JSON.parse(myList);
+            console.log("My List After trim: ", myList2.length);
+            buildHtmlTable(myList2, '#moveslist');
+        }
+    }
+    http.send();
+}
+
 function logoutClick(){
     document.forms['logoutForm'].submit()
 }
@@ -79,6 +120,7 @@ function buildHtmlTable(myList, tableID) {
          $(tableID).append(row$);
      }
  }
+
 
  // Adds a header row to the table and returns the set of columns.
  // Need to do union of keys from all records as some records may not contain

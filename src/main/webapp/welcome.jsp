@@ -24,7 +24,7 @@
 
         <button class="btn btn-lg btn-primary btn-block" onclick="showLeaderBoard();">Show Leaderboard</button>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="showMoves();">Show Moves</button>
+        <button class="btn btn-lg btn-primary btn-block" onclick="showGameIDs();">Show Moves</button>
 
         <button class="btn btn-lg btn-primary btn-block" onclick="startGame();">Start Game</button>
 
@@ -40,6 +40,14 @@
         </c:if>
   </div>
         <h2>Leaderboard</h2><br>
-        <table id="leaderboard" border="1"></table>
+        <table id="leaderboard" border="1"></table><br>
+        <h2>Game List</h2><br>
+        <table id="gamelist" border="1"></table><br>
+
+        <br>Game ID: <input type="text" id="q_gameid" name="q_gameid"><br>
+        <button id="submitgameid" onclick="showMoves($('#q_gameid').val())">Submit GameID</button><br>
+
+        <h2>Moves</h2><br>
+        <table id="moveslist" border="1"></table>
 </body>
 </html>

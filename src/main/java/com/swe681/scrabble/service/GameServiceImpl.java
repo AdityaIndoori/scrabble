@@ -57,7 +57,6 @@ public class GameServiceImpl implements GameService {
             if (principal instanceof UserDetails) {
                 String userName = ((UserDetails) principal).getUsername();
                 List<Game> games = gameRepository.findByStatus(GameStatus.WAIT);
-                log.info("Game list size: " + games.size());//TODO: remove log
                 if(games!=null && games.size()>0){
                     int random_index = getRandomIndex(games.size());
                     Game selectedGame = games.get(random_index);
