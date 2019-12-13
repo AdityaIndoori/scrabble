@@ -12,7 +12,7 @@
     
     <script type="text/javascript">
     	function errorloader(){
-    		var error = "Please create new game";
+    		var error = "Oops, ERROR!";
     		var local = <%=session.getAttribute("error")%>;
     		if(local === error){
     			document.getElementById("errormessage").innerHTML = error;
@@ -40,7 +40,7 @@
 
         <button class="btn btn-lg btn-primary btn-block" onclick="startGame();">Start Game</button>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="joinableGame();">Join Game</button>
+        <button class="btn btn-lg btn-primary btn-block" onclick="joinGame();">Join Game</button>
 
         <button class="btn btn-lg btn-primary btn-block" onclick="showRejoinableGames();">Show Rejoinable Games</button>
 

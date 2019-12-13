@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.swe681.scrabble.service.GameLogicService;
-import com.swe681.scrabble.service.GameService;
-import com.swe681.scrabble.service.JoinGameService;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
@@ -75,7 +71,8 @@ public class GameController {
     @GetMapping("/disconnect")
     public String leaveGame(JoinableGame joinableGameInput) {
         try {
-            joinGameService.onDisconnect();
+            joinGameService.onMoveOrDisconnect();
+            httpSession.setAttribute("gameid", null);
             httpSession.setAttribute("error",null);
             return "redirect:/welcome";
         } catch (Exception e) {

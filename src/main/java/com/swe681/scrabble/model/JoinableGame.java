@@ -9,12 +9,8 @@ import javax.persistence.*;
 @Getter //LOMBOK
 @Setter //LOMBOK
 @NoArgsConstructor //LOMBOK
-@Entity
-@Table(name="joingame")
+
 public class JoinableGame {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String username;
     private String gameid;
