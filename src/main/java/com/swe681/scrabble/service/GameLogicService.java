@@ -1,6 +1,6 @@
 package com.swe681.scrabble.service;
 
-public interface GameLogic {
+public interface GameLogicService {
     void initializeBoard(Long gameid) throws Exception; //TODO: Implement this logic
 
 	void initializeBag(Long gameid) throws Exception;

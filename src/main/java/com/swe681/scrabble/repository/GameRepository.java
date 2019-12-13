@@ -9,11 +9,13 @@ import com.swe681.scrabble.model.Game;
 import com.swe681.scrabble.model.GameStatus;
 
 public interface GameRepository extends JpaRepository<Game, Long> {
-    //List<Game> findByPlayer1orPlayer2AndStatus(String player1, String player2, GameStatus status);
+    List<Game> findByP1UsernameOrP2UsernameAndStatus(String p1Username, String p2Username, GameStatus status);
 
     List<Game> findByStatus(GameStatus status);
     
     Game save(Game game);
     
-    Optional<Game> findById(Long id);
+    //Optional<Game> findById(Long id);
+    
+//    Game findById(Long id);
 }

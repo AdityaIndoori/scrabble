@@ -3,12 +3,15 @@ package com.swe681.scrabble.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
 @Getter //LOMBOK
 @Setter //LOMBOK
+@ToString //LOMBOK
 @NoArgsConstructor //LOMBOK
 @Entity //is a JPA annotation which specifies the class as an entity (so the class name can be used in JPQL queries)
 @Table(name = "game")

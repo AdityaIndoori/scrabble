@@ -119,7 +119,7 @@ public class GameServiceImpl implements GameService {
                 Date date = new Date();
                 Timestamp currentTime = new Timestamp(date.getTime());
                 //Check if user is playing a game with that game id: STATUS = RUN
-                List<Game> games = gameRepository.findByPlayer1OrPlayer2AndStatus(userName, userName, GameStatus.START);//todo: START to RUN
+                List<Game> games = gameRepository.findByP1UsernameOrP2UsernameAndStatus(userName, userName, GameStatus.START);//todo: START to RUN
                 //Check if the game has a difference of less than 120 seconds
                 List<JoinGame> joinGameList = joinGameRepository.findByUsername(userName);
                 //Add such games to this joinableList

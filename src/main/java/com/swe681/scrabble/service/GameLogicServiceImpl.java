@@ -9,14 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.swe681.scrabble.model.Game;
+import com.swe681.scrabble.model.GameStatus;
 import com.swe681.scrabble.model.Player;
 import com.swe681.scrabble.repository.GameRepository;
 import com.swe681.scrabble.repository.PlayerRepository;
 
+import jdk.internal.org.jline.utils.Log;
+import lombok.extern.slf4j.Slf4j;
+
 
 
 @Service
-public class GameLogicImpl implements GameLogic {
+@Slf4j
+public class GameLogicServiceImpl implements GameLogicService {
 	
 	@Autowired
 	GameRepository gameRepository;
@@ -72,7 +77,9 @@ public class GameLogicImpl implements GameLogic {
 					fillPlayerRack(game.getP1Username(), gameid);
 					fillPlayerRack(game.getP2Username(), gameid);
 				}
-				gameRepository.save(game);
+				else {
+					gameRepository.save(game);
+				}
 			}
 		}catch(Exception ex) {
 			throw ex;
@@ -86,9 +93,13 @@ public class GameLogicImpl implements GameLogic {
 			String shuffledBag = shuffle(bag);
 			
 			Game game = gameRepository.findById(gameid).get();
+			
+			//log.info("In GameLogicService------- game before save bag:"+game.toString());
+			
 			if(game!=null) {
 				game.setBag(shuffledBag);
-				gameRepository.save(game);
+				game.setStatus(GameStatus.RUN);
+				game = gameRepository.save(game);
 			}
 		}catch(Exception ex){
 			throw ex;
@@ -101,18 +112,23 @@ public class GameLogicImpl implements GameLogic {
 		// TODO Auto-generated method stub
 		try {
 			Game game = gameRepository.findById(gameid).get();
+			
+			//log.info("In GameLogicService------- game before save board:"+game.toString());
+			
 			if(game!=null) {
 				StringBuilder localBoard = new StringBuilder();
-				for(int i=0; i<15; i++) {
+				for(int i=0; i<5; i++) {
 					StringBuilder row = new StringBuilder();
-					for(int j=0; j<15; j++) {
+					for(int j=0; j<5; j++) {
 						row.append(" ");
 					}
 					localBoard.append(row.toString());
 				}
 				
 				game.setBoard(localBoard.toString());
-				gameRepository.save(game);
+				
+				game = gameRepository.save(game);
+				
 			}
 		}catch(Exception ex){
 			throw ex;
@@ -125,6 +141,10 @@ public class GameLogicImpl implements GameLogic {
 		try {
 			Player player = playerRepository.findByUsernameAndGameid(username, gameid);
 			Game game = gameRepository.findById(gameid).get();
+			
+			//log.info("In GameLogicService------- game before setting rack:"+game.toString());
+			
+			
 			if(player!=null && game!=null && (player.getRack().length()<7)) {
 				StringBuilder localRack = new StringBuilder();
 				localRack.append(player.getRack());
@@ -132,7 +152,10 @@ public class GameLogicImpl implements GameLogic {
 					localRack.append(game.getBag().substring(0, 1));
 					game.setBag(game.getBag().substring(1));
 				}
+				
 				player.setRack(localRack.toString());
+				
+				gameRepository.save(game);
 				playerRepository.save(player);
 			}
 		}catch(Exception ex){

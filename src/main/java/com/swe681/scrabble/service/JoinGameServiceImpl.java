@@ -72,7 +72,7 @@ public class JoinGameServiceImpl implements JoinGameService {
                     //GET List of games by username from join game list
                     List<JoinGame> joinGameList = joinGameRepository.findByUsername(userName);
                     List<JoinGame> joinableList = new ArrayList<>();
-                    List<Game> runningGamesList = gameRepository.findByPlayer1OrPlayer2AndStatus(userName, userName, GameStatus.START);//todo: LOGIC: Game was in Start but we are searching for Run
+                    List<Game> runningGamesList = gameRepository.findByP1UsernameOrP2UsernameAndStatus(userName, userName, GameStatus.START);//todo: LOGIC: Game was in Start but we are searching for Run
                     List<JoinGame> outputList = new ArrayList<>();
                     for(JoinGame joinGame : joinGameList){
                         log.info(String.format("Username is %s, Gameid is %s, and game was diconnected at %s", userName, joinGame.getGameid(), joinGame.getTimestamp()));
