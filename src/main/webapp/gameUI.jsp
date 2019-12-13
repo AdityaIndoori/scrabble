@@ -69,9 +69,13 @@
         function disconnect() {
             if(stompClient != null) {
                 stompClient.disconnect();
+                setConnected(false);
+                console.log("Disconnected");
+                document.location.href = "https://localhost:8443/leave/";
             }
-            setConnected(false);
-            console.log("Disconnected");
+            else{
+                //alert("Could not load game ui");
+            }
         }
 
     </script>

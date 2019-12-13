@@ -108,6 +108,35 @@ function showMoves(gameID){
     document.getElementById('movelistdiv').style.display = "block";
 }
 
+function showRejoinGames(){
+	// To clear up previously rendered table
+	$("#rejoinGamelist tr").remove();
+
+    var token = $("input[name='_csrf']").val();
+    var http = new XMLHttpRequest();
+    var url = 'https://localhost:8443/timeout/';
+    http.open('GET', url, true);
+    http.setRequestHeader('X-CSRF-TOKEN', token);
+
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText); TODO: Get response from leaderBoard API and show in a table
+            console.log("Rejoin Game List JSON: "+http.responseText);
+            var myList = http.responseText;
+            var myList2 = JSON.parse(myList);
+            console.log("My List After trim: ", myList2.length);
+            buildHtmlTable(myList2, '#rejoinGamelist');
+        }
+    }
+    http.send();
+
+    document.getElementById('rejoinGamelistdiv').style.display = "block";
+}
+
+function reJoinGame(gameID){
+    document.location.href = "https://localhost:8443/rejoingame/"+gameID;
+}
+
 function logoutClick(){
     document.forms['logoutForm'].submit()
 }
@@ -160,4 +189,7 @@ function buildHtmlTable(myList, tableID) {
       $(tableID).append(headerTr$);
 
       return columnSet;
+  }
+
+  function rejoinClick(){
   }
