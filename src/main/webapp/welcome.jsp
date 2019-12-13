@@ -42,6 +42,8 @@
 
         <button class="btn btn-lg btn-primary btn-block" onclick="joinGame();">Join Game</button>
 
+        <button class="btn btn-lg btn-primary btn-block" onclick="showRejoinGames();">Rejoin Game</button>
+
         <button class="btn btn-lg btn-primary btn-block" onclick="submitClick();">Test Button</button>
 
         <%-- <button class="btn btn-lg btn-primary btn-block"><a href="${contextPath}/test/123">Chat Button</a></button> --%>
@@ -52,8 +54,8 @@
         <div id="error" style="display: none;"><h2 style="color:red" id="errormessage"></h2></div>
         </c:if>
   </div>
-  
-  
+
+
   		<div id="leaderdiv" style="display: none;">
   			<h2>Leaderboard</h2><br>
         	<table id="leaderboard" border="1"></table><br>
@@ -73,6 +75,15 @@
 			<h2>Moves</h2><br>
         	<table id="moveslist" border="1"></table>
 		</div>
+
+        <div id="rejoinGamelistdiv" style="display: none;">
+            <h2>Rejoin a Game</h2><br>
+            <table id="rejoinGamelist" border="1"></table>
+            <br>
+            Game ID: <input type="text" id="re_gameid" name="re_gameid">
+            <br>
+            <button id="rejoingameid" onclick="reJoinGame($('#re_gameid').val())">Submit GameID</button><br>
+        </div>
         
 		
         

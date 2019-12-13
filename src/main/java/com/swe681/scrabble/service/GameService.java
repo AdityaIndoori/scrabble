@@ -10,4 +10,6 @@ public interface GameService {
     Long joinGame() throws Exception;
     
     List<Game> findByStatus() throws Exception;
+
+    boolean rejoinGame(String gameid) throws Exception;
 }

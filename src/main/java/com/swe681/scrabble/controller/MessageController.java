@@ -29,7 +29,10 @@ public class MessageController {
     @SendTo("/topic/{gameid}")
     public WSOutput send(@DestinationVariable String gameid, MoveWS move) throws Exception {
         String time = new SimpleDateFormat("HH:mm").format(new Date());
-        //TODO: GAME LOGIC HERE
+        //TODO: VALIDATE MOVE DATA
+        //TODO: SAVE MOVE TO DATABASE after VALIDATION
+        //TODO: GAME LOGIC HERE SERVICE
+
         return new WSOutput(move.getWord(), move.getDirection(), move.getRow(), move.getColumn(), move.getGameid(), move.getUsername(), time);
     }
 }
