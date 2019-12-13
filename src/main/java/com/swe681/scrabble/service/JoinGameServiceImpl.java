@@ -1,9 +1,8 @@
 package com.swe681.scrabble.service;
 
 import com.swe681.scrabble.model.Game;
-import com.swe681.scrabble.model.GameMove;
 import com.swe681.scrabble.model.GameStatus;
-import com.swe681.scrabble.model.JoinGame;
+import com.swe681.scrabble.model.JoinableGame;
 import com.swe681.scrabble.repository.GameRepository;
 import com.swe681.scrabble.repository.JoinGameRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +32,7 @@ public class JoinGameServiceImpl implements JoinGameService {
     HttpSession httpSession;
 
     @Override
-    public void saveToDatabase() throws Exception {
+    public void onDisconnect() throws Exception {
         try {
             if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
                 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -41,13 +40,11 @@ public class JoinGameServiceImpl implements JoinGameService {
                     String userName = ((UserDetails) principal).getUsername();
                     String gameid = httpSession.getAttribute("gameid").toString();
                     httpSession.setAttribute("gameid", null);
-                    log.info(String.format("Username is %s and Gameid is %s", userName, gameid));
                     Date date = new Date();
                     Timestamp timestamp = new Timestamp(date.getTime());
                     String timestampStr = timestamp.toString();
-                    JoinGame joinGame = new JoinGame(userName, gameid, timestampStr);
-                    log.info(String.format("Username is %s, Gameid is %s, and timestamp is %s", userName, gameid, timestampStr));
-                    joinGameRepository.save(joinGame);
+                    JoinableGame joinableGame = new JoinableGame(userName, gameid, timestampStr);
+                    joinGameRepository.save(joinableGame);
                 } else {
                     throw new Exception("Principal not instance of UserDetails");
                 }
@@ -61,7 +58,7 @@ public class JoinGameServiceImpl implements JoinGameService {
     }
 
     @Override
-    public List<JoinGame> timeOut() throws Exception {
+    public List<JoinableGame> getJoinableGames() throws Exception {
         try {
             if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
                 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -70,21 +67,21 @@ public class JoinGameServiceImpl implements JoinGameService {
                     Date date = new Date();
                     Timestamp currentTime = new Timestamp(date.getTime());
                     //GET List of games by username from join game list
-                    List<JoinGame> joinGameList = joinGameRepository.findByUsername(userName);
-                    List<JoinGame> joinableList = new ArrayList<>();
+                    List<JoinableGame> joinableGameList = joinGameRepository.findByUsername(userName);
+                    List<JoinableGame> joinableList = new ArrayList<>();
                     List<Game> runningGamesList = gameRepository.findByP1UsernameOrP2UsernameAndStatus(userName, userName, GameStatus.START);//todo: LOGIC: Game was in Start but we are searching for Run
-                    List<JoinGame> outputList = new ArrayList<>();
-                    for(JoinGame joinGame : joinGameList){
-                        log.info(String.format("Username is %s, Gameid is %s, and game was diconnected at %s", userName, joinGame.getGameid(), joinGame.getTimestamp()));
+                    List<JoinableGame> outputList = new ArrayList<>();
+                    for(JoinableGame joinableGame : joinableGameList){
+                        log.info(String.format("Username is %s, Gameid is %s, and game was diconnected at %s", userName, joinableGame.getGameid(), joinableGame.getTimestamp()));
                         try {
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-                            Date parsedDate = dateFormat.parse(joinGame.getTimestamp());
+                            Date parsedDate = dateFormat.parse(joinableGame.getTimestamp());
                             Timestamp savedTime = new java.sql.Timestamp(parsedDate.getTime());
                             long milliseconds = currentTime.getTime() - savedTime.getTime();
                             int differenceInSeconds = (int) milliseconds / 1000;
-                            log.info(String.format("TRY: Username is %s, Gameid is %s, Game was left at %s, current time is %s, and difference was %s", userName, savedTime.toString(), joinGame.getTimestamp(), currentTime.toString(), differenceInSeconds));
+                            log.info(String.format("TRY: Username is %s, Gameid is %s, Game was left at %s, current time is %s, and difference was %s", userName, savedTime.toString(), joinableGame.getTimestamp(), currentTime.toString(), differenceInSeconds));
                             if(differenceInSeconds<120) //TODO: set the timeout limit when displaying the table
-                                joinableList.add(joinGame);
+                                joinableList.add(joinableGame);
                         } catch(Exception e) { //this generic but you can control another types of exception
                             throw new Exception("Could not parse timestamp from string");
                         }
@@ -93,7 +90,7 @@ public class JoinGameServiceImpl implements JoinGameService {
                     log.info(String.format("RUNNING Games Length = %s",runningGamesList.size()));
 
                     for (Game game : runningGamesList){
-                        for(JoinGame game1 : joinableList){
+                        for(JoinableGame game1 : joinableList){
                             log.info(String.format("Joinable GameID = %s and Running GAMEID = %s",game1.getGameid(), game.getId().toString()));
                             if(String.valueOf(game.getId()).equals(game1.getGameid()) && !outputList.contains(game1)) {
                                 log.info(String.format("IF TRUE: Joinable GameID = %s and Running GAMEID = %s",game1.getGameid(), game.getId().toString()));

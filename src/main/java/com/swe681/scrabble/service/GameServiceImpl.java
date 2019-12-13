@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.swe681.scrabble.model.JoinGame;
+import com.swe681.scrabble.model.JoinableGame;
 import com.swe681.scrabble.repository.JoinGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -121,20 +121,18 @@ public class GameServiceImpl implements GameService {
                 //Check if user is playing a game with that game id: STATUS = RUN
                 List<Game> games = gameRepository.findByP1UsernameOrP2UsernameAndStatus(userName, userName, GameStatus.START);//todo: START to RUN
                 //Check if the game has a difference of less than 120 seconds
-                List<JoinGame> joinGameList = joinGameRepository.findByUsername(userName);
+                List<JoinableGame> joinableGameList = joinGameRepository.findByUsername(userName);
                 //Add such games to this joinableList
-                List<JoinGame> joinableList = new ArrayList<>();
-                for(JoinGame joinGame : joinGameList){
-                    log.info(String.format("Username is %s, Gameid is %s, and game was joined at %s", userName, joinGame.getGameid(), joinGame.getTimestamp()));
+                List<JoinableGame> joinableList = new ArrayList<>();
+                for(JoinableGame joinableGame : joinableGameList){
                     try {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-                        Date parsedDate = dateFormat.parse(joinGame.getTimestamp());
+                        Date parsedDate = dateFormat.parse(joinableGame.getTimestamp());
                         Timestamp savedTime = new java.sql.Timestamp(parsedDate.getTime());
                         long milliseconds = currentTime.getTime() - savedTime.getTime();
                         int differenceInSeconds = (int) milliseconds / 1000;
-                        log.info(String.format("TRY: Username is %s, Gameid is %s, Game was left at %s, current time is %s, and difference was %s", userName, savedTime.toString(), joinGame.getTimestamp(), currentTime.toString(), differenceInSeconds));
                         if(differenceInSeconds<120)//TODO: set the timeout limit when joining game
-                            joinableList.add(joinGame);
+                            joinableList.add(joinableGame);
                     } catch(Exception e) { //this generic but you can control another types of exception
                         throw new Exception("Could not parse timestamp from string");
                     }
@@ -148,8 +146,8 @@ public class GameServiceImpl implements GameService {
                 }
                 if (!correctUser)
                     return false;
-                for (JoinGame joinGame : joinableList){
-                    if(joinGame.getGameid().equals(gameid))
+                for (JoinableGame joinableGame : joinableList){
+                    if(joinableGame.getGameid().equals(gameid))
                         correctTime = true;
                 }
                 if(!correctTime)

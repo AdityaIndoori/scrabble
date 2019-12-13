@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor //LOMBOK
 @Entity
 @Table(name="joingame")
-public class JoinGame {
+public class JoinableGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +20,7 @@ public class JoinGame {
     private String gameid;
     private String timestamp;
 
-    public JoinGame(String username, String gameid, String timestamp) {
+    public JoinableGame(String username, String gameid, String timestamp) {
         this.username = username;
         this.gameid = gameid;
         this.timestamp = timestamp;

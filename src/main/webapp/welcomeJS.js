@@ -108,13 +108,13 @@ function showMoves(gameID){
     document.getElementById('movelistdiv').style.display = "block";
 }
 
-function showRejoinGames(){
+function showRejoinableGames(){
 	// To clear up previously rendered table
 	$("#rejoinGamelist tr").remove();
 
     var token = $("input[name='_csrf']").val();
     var http = new XMLHttpRequest();
-    var url = 'https://localhost:8443/timeout/';
+    var url = 'https://localhost:8443/rejoinablegamelist/';
     http.open('GET', url, true);
     http.setRequestHeader('X-CSRF-TOKEN', token);
 
@@ -189,7 +189,4 @@ function buildHtmlTable(myList, tableID) {
       $(tableID).append(headerTr$);
 
       return columnSet;
-  }
-
-  function rejoinClick(){
   }

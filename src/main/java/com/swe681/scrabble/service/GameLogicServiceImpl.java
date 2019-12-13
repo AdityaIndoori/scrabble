@@ -13,8 +13,6 @@ import com.swe681.scrabble.model.GameStatus;
 import com.swe681.scrabble.model.Player;
 import com.swe681.scrabble.repository.GameRepository;
 import com.swe681.scrabble.repository.PlayerRepository;
-
-import jdk.internal.org.jline.utils.Log;
 import lombok.extern.slf4j.Slf4j;
 
 

@@ -40,9 +40,9 @@
 
         <button class="btn btn-lg btn-primary btn-block" onclick="startGame();">Start Game</button>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="joinGame();">Join Game</button>
+        <button class="btn btn-lg btn-primary btn-block" onclick="joinableGame();">Join Game</button>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="showRejoinGames();">Rejoin Game</button>
+        <button class="btn btn-lg btn-primary btn-block" onclick="showRejoinableGames();">Show Rejoinable Games</button>
 
         <button class="btn btn-lg btn-primary btn-block" onclick="submitClick();">Test Button</button>
 
@@ -54,7 +54,6 @@
         <div id="error" style="display: none;"><h2 style="color:red" id="errormessage"></h2></div>
         </c:if>
   </div>
-
 
   		<div id="leaderdiv" style="display: none;">
   			<h2>Leaderboard</h2><br>
@@ -82,10 +81,8 @@
             <br>
             Game ID: <input type="text" id="re_gameid" name="re_gameid">
             <br>
-            <button id="rejoingameid" onclick="reJoinGame($('#re_gameid').val())">Submit GameID</button><br>
+            <button id="rejoingameid" onclick="reJoinGame($('#re_gameid').val())">Rejoin Game</button><br>
         </div>
-        
-		
-        
+
 </body>
 </html>
