@@ -63,8 +63,8 @@ public class GameRestController {
 		        	for(Game g: list) {
 		        		GameListReturn glr = new GameListReturn();
 		        		glr.setId(g.getId());
-		        		glr.setPlayer1(g.getPlayer1());
-		        		glr.setPlayer2(g.getPlayer2());
+		        		glr.setPlayer1(g.getP1Username());
+		        		glr.setPlayer2(g.getP2Username());
 		        		glr.setStatus(g.getStatus());
 		        		returningList.add(glr);
 		        		log.info("In gamelist API ----- GET ID ------------------------------"+glr.getId());

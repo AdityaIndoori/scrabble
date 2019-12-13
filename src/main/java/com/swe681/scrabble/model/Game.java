@@ -18,42 +18,18 @@ public class Game {
     private Long id;
 
     @Nullable
-    private String row1;
+    private String board;
 
     @Nullable
-    private String row2;
+    private String p1Username;
 
     @Nullable
-    private String row3;
-
-    @Nullable
-    private String row4;
-
-    @Nullable
-    private String row5;
-
-    @Nullable
-    private String row6;
-
-    @Nullable
-    private String row7;
-
-    @Nullable
-    private String row8;
-
-    @Nullable
-    private String row9;
-
-    @Nullable
-    private String row10;
-
-    @Nullable
-    private String player1;
-
-    @Nullable
-    private String player2;
+    private String p2Username;
 
     @Nullable
     @Enumerated(EnumType.STRING)
     private GameStatus status;
+    
+    @Nullable
+    private String bag;
 }

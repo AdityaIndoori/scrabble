@@ -38,7 +38,7 @@ public class GameServiceImpl implements GameService {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (principal instanceof UserDetails) {
                 String userName = ((UserDetails) principal).getUsername();
-                game.setPlayer1(userName);
+                game.setP1Username(userName);
                 game.setStatus(GameStatus.WAIT);
                 game = gameRepository.save(game);
                 return game.getId();
@@ -60,7 +60,7 @@ public class GameServiceImpl implements GameService {
                 if(games!=null && games.size()>0){
                     int random_index = getRandomIndex(games.size());
                     Game selectedGame = games.get(random_index);
-                    selectedGame.setPlayer2(userName);
+                    selectedGame.setP2Username(userName);
                     selectedGame.setStatus(GameStatus.START);
                     selectedGame = gameRepository.save(selectedGame);
                     return selectedGame.getId();
