@@ -35,4 +35,7 @@ public class Game {
     
     @Nullable
     private String bag;
+    
+    @Nullable
+    private String lastMove;
 }

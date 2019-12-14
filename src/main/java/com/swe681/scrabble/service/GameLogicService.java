@@ -1,10 +1,14 @@
 package com.swe681.scrabble.service;
 
-public interface GameLogicService {
-    void initializeBoard(Long gameid) throws Exception; //TODO: Implement this logic
+import com.swe681.scrabble.model.MoveWS;
+import com.swe681.scrabble.model.OutputMove;
 
-	void initializeBag(Long gameid) throws Exception;
+public interface GameLogicService {
 
 	void createGame(Long gameid) throws Exception;
+
+	String playMove(MoveWS move) throws Exception;
+
+	OutputMove settingOutputMove(MoveWS move) throws Exception;
 
 }

@@ -33,8 +33,7 @@
         function setConnected(connected) {
             document.getElementById('connect').disabled = connected;
             document.getElementById('disconnect').disabled = !connected;
-            document.getElementById('conversationDiv').style.visibility
-              = connected ? 'visible' : 'hidden';
+            document.getElementById('conversationDiv').style.visibility= connected ? 'visible' : 'hidden';
             document.getElementById('response').innerHTML = '';
         }
 
@@ -57,13 +56,20 @@
             stompClient.send("/app/chat/"+gameid, {}, JSON.stringify(submit_data));
         }
 
-        function showMessageOutput(messageOutput) {
+        function showMessageOutput(messageOut) {
             var response = document.getElementById('response');
             var p = document.createElement('p');
             p.style.wordWrap = 'break-word';
+            
+            $("#gameboard tr").remove(); 
+            buildHtmlTable(messageOut.outputTable, '#gameboard');
+            
+            
+            var messageOutput = messageOut.wsoutput;
             console.log(messageOutput);
             p.appendChild(document.createTextNode(messageOutput.username + ": " + messageOutput.word +" at Row|Col: "+messageOutput.row+"|"+messageOutput.column+ " (" + messageOutput.time + ")"));
             response.appendChild(p);
+            
         }
 
         function disconnect() {
@@ -77,6 +83,49 @@
                 //alert("Could not load game ui");
             }
         }
+        
+        function buildHtmlTable(myList, tableID) {
+        	
+            console.log("Inside buildHtml = "+ myList);
+             var columns = addAllColumnHeaders(myList, tableID);
+
+             for (var i = 0 ; i < myList.length ; i++) {
+                 var row$ = $('<tr/>');
+                 for (var colIndex = 0 ; colIndex < columns.length ; colIndex++) {
+                     var cellValue = myList[i][columns[colIndex]];
+
+                     if (cellValue == null) { cellValue = ""; }
+
+                     row$.append($('<td/>').html(cellValue));
+                 }
+                 $(tableID).append(row$);
+             }
+         }
+
+
+         // Adds a header row to the table and returns the set of columns.
+         // Need to do union of keys from all records as some records may not contain
+         // all records
+         function addAllColumnHeaders(myList, tableID)
+          {
+              var columnSet = [];
+              var headerTr$ = $('<tr/>');
+
+              for (var i = 0 ; i < myList.length ; i++) {
+                  var rowHash = myList[i];
+                  for (var key in rowHash) {
+                      if ($.inArray(key, columnSet) == -1){
+                          columnSet.push(key);
+                          headerTr$.append($('<th/>').html(key));
+                      }
+                  }
+              }
+              $(tableID).append(headerTr$);
+
+              return columnSet;
+          }
+
+          
 
     </script>
 
@@ -89,8 +138,8 @@
     <table id="gameboard" border="1"></table><br>
 
     Word: <input type="text" id="word" name="word"><br>
-    Row: <input type="number" id="row" name="row" min=1 max=7><br>
-    Column: <input type="number" id="column" name="column" min=1 max=7><br>
+    Row: <input type="number" id="row" name="row" min=0 max=9><br>
+    Column: <input type="number" id="column" name="column" min=0 max=9><br>
     Horizontal: <input type="radio" value="HORIZONTAL" name="direction"><br>
     Vertical: <input type="radio" value="VERTICAL" name="direction"><br>
     <button id="submitmove" onclick="sendMessage()">Submit Move</button>
@@ -102,10 +151,10 @@
             </button>
         </div>
         <div id="conversationDiv">
-            <input type="text" id="text" placeholder="Write a message..."/>
-            <button id="sendMessage" onclick="sendMessage();">Send</button>
+            <!--  <input type="text" id="text" placeholder="Write a message..."/>
+            <button id="sendMessage" onclick="sendMessage();">Send</button>-->
             <h2>OUTPUT:</h2>
-            <p id="response"></p>
+            <p id="response"></p> 
         </div>
     </body>
 </html>
