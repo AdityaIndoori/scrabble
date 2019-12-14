@@ -2,18 +2,17 @@ package com.swe681.scrabble.controller;
 
 import javax.servlet.http.HttpSession;
 
+import com.swe681.scrabble.model.JoinableGame;
+import com.swe681.scrabble.service.GameService;
+import com.swe681.scrabble.service.JoinGameService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.swe681.scrabble.model.JoinGame;
 import com.swe681.scrabble.service.GameLogicService;
-import com.swe681.scrabble.service.GameService;
-import com.swe681.scrabble.service.JoinGameService;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
@@ -69,10 +68,11 @@ public class GameController {
         return "gameUI";
     }
 
-    @GetMapping("/leave")
-    public String leaveGame(JoinGame joinGameInput) {
+    @GetMapping("/disconnect")
+    public String leaveGame(JoinableGame joinableGameInput) {
         try {
-            joinGameService.saveToDatabase();
+            joinGameService.onDisconnect();
+            httpSession.setAttribute("gameid", null);
             httpSession.setAttribute("error",null);
             return "redirect:/welcome";
         } catch (Exception e) {
@@ -84,7 +84,6 @@ public class GameController {
     @GetMapping("/rejoingame/{gameid}")
     public String rejoingame(@PathVariable String gameid) {
         try {
-            log.info(String.format("rejoingame: Game ID is %s", gameid));
             if(gameService.rejoinGame(gameid)) {
                 httpSession.setAttribute("gameid", gameid);
                 httpSession.setAttribute("error", null);

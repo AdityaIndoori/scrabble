@@ -30,6 +30,12 @@ public class Game {
     private String p2Username;
 
     @Nullable
+    private String p1TimeStamp;
+
+    @Nullable
+    private String p2TimeStamp;
+
+    @Nullable
     @Enumerated(EnumType.STRING)
     private GameStatus status;
     

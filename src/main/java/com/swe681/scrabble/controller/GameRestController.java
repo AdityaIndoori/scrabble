@@ -102,13 +102,13 @@ public class GameRestController {
 		}
     }
 
-	@GetMapping("/timeout")
-	public ResponseEntity<List<JoinGame>> timeout(JoinGame joinGameInput) {
+	@GetMapping("/rejoinablegamelist")
+	public ResponseEntity<List<JoinableGame>> timeout(JoinableGame joinableGameInput) {
 		try {
 			if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
 				Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				if (principal instanceof UserDetails) {
-					List<JoinGame> list = joinGameService.timeOut();
+					List<JoinableGame> list = joinGameService.getJoinableGames();
 					return new ResponseEntity<>(list, HttpStatus.OK);
 				}
 			}

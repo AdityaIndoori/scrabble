@@ -1,6 +1,7 @@
 package com.swe681.scrabble.repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +15,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Game> findByStatus(GameStatus status);
     
     Game save(Game game);
-    
+
     //Optional<Game> findById(Long id);
     
 }
