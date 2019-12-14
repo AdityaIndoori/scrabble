@@ -34,7 +34,8 @@ public class MessageController {
         if(move.getWord().equals("showGameRack")){
             log.info(String.format("showGameRack: Message: %s, username = %s, gameid = %s", move.getWord(), move.getUsername(), move.getGameid()));
             String gameRack = gameLogicService.showGameRack(move.getGameid(), move.getUsername());
-            OutputMove om = new OutputMove();
+            OutputMove om = ((GameLogicService) gameLogicService).settingOutputMove(move);
+            om.setError("first");
             om.setGameRack(gameRack);
            return om;
         }

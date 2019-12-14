@@ -173,6 +173,7 @@ public class GameLogicServiceImpl implements GameLogicService {
 
 
 				String p1Username = game.getP1Username();
+				om.setP1Username(p1Username);
 
 				Player player = playerRepository.findByUsernameAndGameid(p1Username, Long.parseLong(move.getGameid()));
 
@@ -181,6 +182,7 @@ public class GameLogicServiceImpl implements GameLogicService {
 				}
 
 				String p2Username = game.getP2Username();
+				om.setP2Username(p2Username);
 
 				Player player2 = playerRepository.findByUsernameAndGameid(p2Username, Long.parseLong(move.getGameid()));
 

@@ -16,7 +16,9 @@ public class OutputMove {
     private JSONArray json;
     private String error;
     private String gameRack;
+    private String p1Username;
     private Integer p1Score;
+    private String p2Username;
     private Integer p2Score;
     private WSOutput wsoutput;
     private List<List<String>> outputTable;

@@ -52,7 +52,7 @@
   </div>
 
   		<div id="leaderdiv" style="display: none;">
-  			<h2>Leaderboard</h2><br>
+  			<h2>Leaderboard</h2>
         	<table id="leaderboard" border="1"></table><br>
   		</div>
   		

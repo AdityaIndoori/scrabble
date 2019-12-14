@@ -45,12 +45,20 @@ function showLeaderBoard(){
             console.log("My List: "+myList + "\n Length="+ myList.length);
             var myList2 = JSON.parse(myList);
             console.log("My List After trim: ", myList2.length);
-            buildHtmlTable(myList2, '#leaderboard');
+            
+            if(myList2.length>0){
+            	buildHtmlTable(myList2, '#leaderboard');
+            	document.getElementById('leaderdiv').style.display = "block";
+            }
+            else{
+            	document.getElementById('error').style.display = "block";
+            	document.getElementById('errormessage').innerHTML = "Can not load Leaderboard table!";
+            }
         }
     }
     http.send();
     
-    document.getElementById('leaderdiv').style.display = "block";
+    //document.getElementById('leaderdiv').style.display = "block";
 }
 
 function showGameIDs(){
