@@ -71,7 +71,7 @@ public class GameController {
     @GetMapping("/disconnect")
     public String leaveGame(JoinableGame joinableGameInput) {
         try {
-            joinGameService.onMoveOrDisconnect();
+            joinGameService.onDisconnect();
             httpSession.setAttribute("gameid", null);
             httpSession.setAttribute("error",null);
             return "redirect:/welcome";

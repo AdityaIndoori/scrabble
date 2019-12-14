@@ -28,7 +28,7 @@ public class JoinGameServiceImpl implements JoinGameService {
     HttpSession httpSession;
 
     @Override
-    public void onMoveOrDisconnect() throws Exception {
+    public void onDisconnect() throws Exception {
         try {
             if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
                 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -64,12 +64,10 @@ public class JoinGameServiceImpl implements JoinGameService {
     }
 
     @Override
-    public void onMoveOrDisconnect(String gameid, String userName) throws Exception {
+    public void onMoveSubmit(String gameid, String userName) throws Exception {
         try {
             if (true) {
-                log.info("Inside isAuthenticated");
                 if (true) {
-                    log.info("Inside principal instanceof UserDetails");
                     Date date = new Date();
                     Timestamp timestamp = new Timestamp(date.getTime());
                     String currentTimeStamp = timestamp.toString();
