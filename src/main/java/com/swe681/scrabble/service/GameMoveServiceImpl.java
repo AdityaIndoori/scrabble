@@ -1,16 +1,15 @@
 package com.swe681.scrabble.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.swe681.scrabble.model.Game;
+import com.swe681.scrabble.model.GameMove;
 import com.swe681.scrabble.model.GameStatus;
+import com.swe681.scrabble.repository.GameMoveRepository;
 import com.swe681.scrabble.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.swe681.scrabble.model.GameMove;
-import com.swe681.scrabble.repository.GameMoveRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GameMoveServiceImpl implements GameMoveService{

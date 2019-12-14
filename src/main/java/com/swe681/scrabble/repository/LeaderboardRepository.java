@@ -1,10 +1,9 @@
 package com.swe681.scrabble.repository;
 
-import java.util.List;
-
+import com.swe681.scrabble.model.Leaderboard;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.swe681.scrabble.model.Leaderboard;
+import java.util.List;
 
 public interface LeaderboardRepository extends JpaRepository<Leaderboard, Long>{
 	

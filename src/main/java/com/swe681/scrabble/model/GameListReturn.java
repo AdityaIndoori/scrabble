@@ -1,10 +1,10 @@
 package com.swe681.scrabble.model;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Getter
 @Setter

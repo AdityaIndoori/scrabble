@@ -1,8 +1,7 @@
 package com.swe681.scrabble.controller;
 
-import javax.servlet.http.HttpSession;
-
 import com.swe681.scrabble.model.JoinableGame;
+import com.swe681.scrabble.service.GameLogicService;
 import com.swe681.scrabble.service.GameService;
 import com.swe681.scrabble.service.JoinGameService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.swe681.scrabble.service.GameLogicService;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @Slf4j

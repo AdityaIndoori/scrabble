@@ -1,12 +1,11 @@
 package com.swe681.scrabble.service;
 
-import java.util.List;
-
+import com.swe681.scrabble.model.Leaderboard;
+import com.swe681.scrabble.repository.LeaderboardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.swe681.scrabble.model.Leaderboard;
-import com.swe681.scrabble.repository.LeaderboardRepository;
+import java.util.List;
 
 @Service
 public class LeaderboardServiceImpl implements LeaderboardService {

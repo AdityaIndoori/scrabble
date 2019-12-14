@@ -1,11 +1,11 @@
 package com.swe681.scrabble.model;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.minidev.json.JSONArray;
+
+import java.util.List;
 
 
 @Getter //LOMBOK

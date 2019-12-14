@@ -1,21 +1,19 @@
 package com.swe681.scrabble.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import com.swe681.scrabble.model.MoveWS;
+import com.swe681.scrabble.model.OutputMove;
+import com.swe681.scrabble.model.WSOutput;
+import com.swe681.scrabble.service.GameLogicService;
 import com.swe681.scrabble.service.JoinGameService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
-import com.swe681.scrabble.model.MoveWS;
-import com.swe681.scrabble.model.OutputMove;
-import com.swe681.scrabble.model.WSOutput;
-import com.swe681.scrabble.service.GameLogicService;
-
-import lombok.extern.slf4j.Slf4j;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @Slf4j

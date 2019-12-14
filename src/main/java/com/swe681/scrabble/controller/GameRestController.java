@@ -1,10 +1,11 @@
 package com.swe681.scrabble.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.swe681.scrabble.model.*;
+import com.swe681.scrabble.service.GameMoveService;
+import com.swe681.scrabble.service.GameService;
 import com.swe681.scrabble.service.JoinGameService;
+import com.swe681.scrabble.service.LeaderboardService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.swe681.scrabble.service.GameMoveService;
-import com.swe681.scrabble.service.GameService;
-import com.swe681.scrabble.service.LeaderboardService;
-
-import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController

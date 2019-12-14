@@ -1,8 +1,8 @@
 package com.swe681.scrabble.service;
 
-import java.util.List;
-
 import com.swe681.scrabble.model.Game;
+
+import java.util.List;
 
 public interface GameService {
     Long startGame() throws Exception;

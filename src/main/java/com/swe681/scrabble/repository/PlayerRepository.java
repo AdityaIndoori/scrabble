@@ -1,8 +1,7 @@
 package com.swe681.scrabble.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.swe681.scrabble.model.Player;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
