@@ -13,7 +13,12 @@
   </head>
 
   <body>
-
+	<h1>SWE681: Scrabble Project</h1>
+	<h2>Team:</h2>
+	<ol>
+		<li>Aditya Indoori (G01129724)</li>
+		<li>Prashant Sahu (G01149803)</li>
+	</ol>
     <div class="container">
       <form method="POST" action="${contextPath}/login" class="form-signin">
         <h2 class="form-heading">Log in</h2>

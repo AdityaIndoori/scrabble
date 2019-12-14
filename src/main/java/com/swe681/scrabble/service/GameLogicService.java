@@ -11,4 +11,5 @@ public interface GameLogicService {
 
 	OutputMove settingOutputMove(MoveWS move) throws Exception;
 
+	String showGameRack(String gameid, String username) throws Exception;
 }

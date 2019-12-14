@@ -15,6 +15,7 @@ public class OutputMove {
     //"word": s_word, "direction": s_direction, "row": s_row, "column":s_column, "gameid":gameid, "username":username
     private JSONArray json;
     private String error;
+    private String gameRack;
     private Integer p1Score;
     private Integer p2Score;
     private WSOutput wsoutput;

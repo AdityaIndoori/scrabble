@@ -28,9 +28,9 @@
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <br>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="logoutClick()">Logout</button>
+		<h1>SWE681: Scrabble</h1>
+
 
         <h2>Welcome ${pageContext.request.userPrincipal.name}</h2>
 
@@ -44,12 +44,8 @@
 
         <button class="btn btn-lg btn-primary btn-block" onclick="showRejoinableGames();">Show Rejoinable Games</button>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="submitClick();">Test Button</button>
+		<button class="btn btn-lg btn-primary btn-block" onclick="logoutClick()">Logout</button>
 
-        <%-- <button class="btn btn-lg btn-primary btn-block"><a href="${contextPath}/test/123">Chat Button</a></button> --%>
-
-        <button class="btn btn-lg btn-primary btn-block" onclick="chatClick();">Chat Button</button>
-		
 		<img src onerror='errorloader()'>
         <div id="error" style="display: none;"><h2 style="color:red" id="errormessage"></h2></div>
         </c:if>
