@@ -10,8 +10,6 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Game> findByP1UsernameOrP2UsernameAndStatus(String p1Username, String p2Username, GameStatus status);
 
     List<Game> findByStatus(GameStatus status);
-    
-    Game save(Game game);
 
     //Optional<Game> findById(Long id);
     

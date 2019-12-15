@@ -5,10 +5,10 @@ import com.swe681.scrabble.model.JoinableGame;
 import java.util.List;
 
 public interface JoinGameService {
-    public void onDisconnect() throws Exception;
+    void onDisconnect() throws Exception;
 
-    public void onMoveSubmit(String gameid, String userName) throws Exception;
+    void onMoveSubmit(String gameid, String userName) throws Exception;
 
 
-    public List<JoinableGame> getJoinableGames() throws Exception;
+    List<JoinableGame> getJoinableGames() throws Exception;
 }

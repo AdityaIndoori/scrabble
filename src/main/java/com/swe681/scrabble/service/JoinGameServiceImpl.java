@@ -66,30 +66,24 @@ public class JoinGameServiceImpl implements JoinGameService {
     @Override
     public void onMoveSubmit(String gameid, String userName) throws Exception {
         try {
-            if (true) {
-                if (true) {
-                    Date date = new Date();
-                    Timestamp timestamp = new Timestamp(date.getTime());
-                    String currentTimeStamp = timestamp.toString();
-                    //Get current game by Id:
-                    Game currentGame = gameRepository.findById(Long.parseLong(gameid)).get();
-                    //Check if player1 or player 2:
-                    if(userName.equals(currentGame.getP1Username()) ){
-                        currentGame.setP1TimeStamp(currentTimeStamp);
-                    }
-                    else if(userName.equals(currentGame.getP2Username()) ){
-                        currentGame.setP2TimeStamp(currentTimeStamp);
-                    }
-                    else {
-                        throw new Exception("User not authenticated");
-                    }
-                    gameRepository.save(currentGame);
-                } else {
-                    throw new Exception("Principal not instance of UserDetails");
-                }
-            } else {
+            
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            String currentTimeStamp = timestamp.toString();
+            //Get current game by Id:
+            Game currentGame = gameRepository.findById(Long.parseLong(gameid)).get();
+            //Check if player1 or player 2:
+            if(userName.equals(currentGame.getP1Username()) ){
+                currentGame.setP1TimeStamp(currentTimeStamp);
+            }
+            else if(userName.equals(currentGame.getP2Username()) ){
+                currentGame.setP2TimeStamp(currentTimeStamp);
+            }
+            else {
                 throw new Exception("User not authenticated");
             }
+            gameRepository.save(currentGame);
+                
         }
         catch (Exception e){
             throw new Exception("Could not save data to joingame");
@@ -127,11 +121,12 @@ public class JoinGameServiceImpl implements JoinGameService {
                                 throw new Exception("Unable to parse date");
                             }
 
-                            Timestamp savedTime = new java.sql.Timestamp(parsedDate.getTime());
+                            Timestamp savedTime = new Timestamp(parsedDate.getTime());
                             long differenceInMilliSeconds = currentTime.getTime() - savedTime.getTime();
                             int differenceInSeconds = (int) differenceInMilliSeconds / 1000;
-                            if(differenceInSeconds<120) //TODO: set the timeout limit when displaying the table
+                            if(differenceInSeconds<120) {//TODO: set the timeout limit when displaying the table
                                 outputList.add(new JoinableGame(userName, runningGame.getId().toString(), parsedDate.toString()));
+                            }
                         } catch(Exception e) { //this generic but you can control with other types of exception
                             throw new Exception("Could not parse timestamp from string");
                         }

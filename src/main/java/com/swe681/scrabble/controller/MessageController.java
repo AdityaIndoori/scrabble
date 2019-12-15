@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @Controller
 @Slf4j
@@ -49,7 +50,7 @@ public class MessageController {
             try {
                 if (response.contains("SUCCESS")) {
 
-                    move.setWord(move.getWord().toUpperCase());
+                    move.setWord(move.getWord().toUpperCase(Locale.US));
 
                     WSOutput wsout = new WSOutput(move.getWord(), move.getDirection(), move.getRow(), move.getColumn(), move.getGameid(), move.getUsername(), time);
 

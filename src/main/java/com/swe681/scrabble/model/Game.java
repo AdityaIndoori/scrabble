@@ -1,12 +1,19 @@
 package com.swe681.scrabble.model;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.lang.Nullable;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.lang.Nullable;
-
-import javax.persistence.*;
 
 @Getter //LOMBOK
 @Setter //LOMBOK

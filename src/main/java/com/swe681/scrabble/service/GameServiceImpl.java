@@ -65,9 +65,9 @@ public class GameServiceImpl implements GameService {
                 Timestamp timestamp = new Timestamp(date.getTime());
                 String currentTimeStamp = timestamp.toString();
                 List<Game> games = gameRepository.findByStatus(GameStatus.WAIT);
-                if(games!=null && games.size()>0){
-                    int random_index = getRandomIndex(games.size());
-                    Game selectedGame = games.get(random_index);
+                if(games!=null && !games.isEmpty()){
+                    int randomIndex = getRandomIndex(games.size());
+                    Game selectedGame = games.get(randomIndex);
                     selectedGame.setP2Username(userName);
                     selectedGame.setP2TimeStamp(currentTimeStamp);
                     selectedGame.setStatus(GameStatus.START);
@@ -101,8 +101,7 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public List<Game> findByStatus() throws Exception{
 		try {
-			List<Game> list = gameRepository.findByStatus(GameStatus.FINISHED);
-			return list;
+			return gameRepository.findByStatus(GameStatus.FINISHED);
 		}catch(Exception e) {
 			throw e;
 		}
@@ -120,8 +119,9 @@ public class GameServiceImpl implements GameService {
                 //Check if user is playing a game with that game id: STATUS = RUN
                 List<Game> runningGameList = gameRepository.findByP1UsernameOrP2UsernameAndStatus(userName, userName, GameStatus.RUN);//todo: START to RUN
                 for (Game runningGame : runningGameList){
-                    if(runningGame.getId().toString().equals(gameid))
+                    if(runningGame.getId().toString().equals(gameid)) {
                         playersGame = true;
+                    }
                     if (playersGame){
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
                         Date parsedDate = null;
@@ -139,11 +139,12 @@ public class GameServiceImpl implements GameService {
                             throw new Exception("Unable to parse date");
                         }
 
-                        Timestamp savedTime = new java.sql.Timestamp(parsedDate.getTime());
+                        Timestamp savedTime = new Timestamp(parsedDate.getTime());
                         long differenceInMilliSeconds = currentTime.getTime() - savedTime.getTime();
                         int differenceInSeconds = (int) differenceInMilliSeconds / 1000;
-                        if(differenceInSeconds<120)//TODO: set the timeout limit when displaying the table
+                        if(differenceInSeconds<120) {//TODO: set the timeout limit when displaying the table
                             return true;
+                        }
                     }
                 }
                 return false;

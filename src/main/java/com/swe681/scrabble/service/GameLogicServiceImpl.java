@@ -1,20 +1,32 @@
 package com.swe681.scrabble.service;
 
-import com.swe681.scrabble.model.*;
-import com.swe681.scrabble.repository.GameMoveRepository;
-import com.swe681.scrabble.repository.GameRepository;
-import com.swe681.scrabble.repository.PlayerRepository;
-import lombok.extern.slf4j.Slf4j;
-import lombok.var;
-import net.minidev.json.JSONArray;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Scanner;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
+import com.swe681.scrabble.model.Direction;
+import com.swe681.scrabble.model.Game;
+import com.swe681.scrabble.model.GameMove;
+import com.swe681.scrabble.model.GameStatus;
+import com.swe681.scrabble.model.MoveWS;
+import com.swe681.scrabble.model.OutputMove;
+import com.swe681.scrabble.model.Player;
+import com.swe681.scrabble.repository.GameMoveRepository;
+import com.swe681.scrabble.repository.GameRepository;
+import com.swe681.scrabble.repository.PlayerRepository;
+
+import lombok.var;
+import lombok.extern.slf4j.Slf4j;
 
 
 
@@ -33,7 +45,7 @@ public class GameLogicServiceImpl implements GameLogicService {
 
 	static final Map<String, Integer> LETTER_SCORE;
 	static final Integer BOARDSIZE = 10;
-	static StringBuilder CHARACTERS_PLAYED;
+	static StringBuilder CHARACTERS_PLAYED = new StringBuilder();
 
 	static {
 		LETTER_SCORE = new HashMap<>();
@@ -99,7 +111,7 @@ public class GameLogicServiceImpl implements GameLogicService {
 				return "MESSAGE: Turn skipped for "+move.getUsername();
 			}
 
-			move.setWord(move.getWord().toUpperCase());
+			move.setWord(move.getWord().toUpperCase(Locale.US));
 
 			Character matrix2d[][] = create2DBoard(Long.parseLong(move.getGameid()));
 
@@ -149,14 +161,10 @@ public class GameLogicServiceImpl implements GameLogicService {
 			Game game = gameRepository.findById(Long.parseLong(move.getGameid())).get();
 
 			if(game!=null) {
-				String board = game.getBoard();
 
 				//OutputBoard ob =new OutputBoard();
 				Character matrix2d[][] = create2DBoard(Long.parseLong(move.getGameid()));
 
-
-
-				JSONArray array = new JSONArray();
 				List<List<String>> outputTable = new ArrayList<>();
 
 				for(int i=0; i<BOARDSIZE; i++) {
@@ -203,13 +211,16 @@ public class GameLogicServiceImpl implements GameLogicService {
 	public String showGameRack(String gameid, String username) throws Exception {
 		log.info(String.format("ShowGamrRack: username = %s, gameid = %s",username, gameid));
 		List<Player> currentPlayers = playerRepository.findByGameid(Long.parseLong(gameid));
-		if (currentPlayers == null)
+		if (currentPlayers == null) {
 			throw new Exception("No player with game id and username found");
+		}
 		else{
-			if (currentPlayers.size()==2)
+			if (currentPlayers.size()==2) {
 				return String.format("{\"%s\":\"%s\", \"%s\":\"%s\"}", currentPlayers.get(0).getUsername(), currentPlayers.get(0).getRack(), currentPlayers.get(1).getUsername(), currentPlayers.get(1).getRack());
-			else
+			}
+			else {
 				throw new Exception("Only a single player was found");
+			}
 		}
 	}
 
@@ -300,7 +311,8 @@ public class GameLogicServiceImpl implements GameLogicService {
 
 	private String createStringFromMatrix(Character matrix2d[][]) throws Exception{
 		try {
-			int i=0, j=0;
+			var i=0;
+			var j=0;
 			StringBuilder returningStr = new StringBuilder();
 			for(i=0; i<matrix2d.length; i++) {
 				for(j=0; j<matrix2d[i].length; j++) {
@@ -336,8 +348,8 @@ public class GameLogicServiceImpl implements GameLogicService {
 	private String checkWord(String username, Long gameid, String word, String direction, Integer rIndex, Integer cIndex, Character boardMatrix[][]) throws Exception {
 		try {
 			StringBuilder currentBoardArr = new StringBuilder();
-			int i=0,j=0;
-			boolean overlap = false;
+			var i=0;
+			//boolean overlap = false;
 			CHARACTERS_PLAYED = new StringBuilder();
 			
 			//Checking if it is the correct turn
@@ -346,8 +358,9 @@ public class GameLogicServiceImpl implements GameLogicService {
 				return response;
 			}
 
-			if (username == null || gameid == null || word == null || direction == null || rIndex == null || cIndex == null || boardMatrix == null)
+			if (username == null || gameid == null || word == null || direction == null || rIndex == null || cIndex == null || boardMatrix == null) {
 				throw new Exception("Null value!");
+			}
 			
 			// Getting current Situation
 			if(direction.equals(Direction.HORIZONTAL.toString())) {
@@ -377,6 +390,7 @@ public class GameLogicServiceImpl implements GameLogicService {
 
 				}
 			}
+			
 			log.info("CURRENT BOARD ARRAY::-----"+currentBoardArr.toString());
 
 
@@ -387,7 +401,8 @@ public class GameLogicServiceImpl implements GameLogicService {
 					CHARACTERS_PLAYED.append(word.charAt(i));
 				}
 				else if(word.charAt(i) == currentBoardArr.charAt(i)) {
-					overlap = true;
+					//overlap = true;
+					continue;
 				}
 				else {
 					return "ERROR: Letters do not overlap, please choose another word.";
@@ -462,7 +477,7 @@ public class GameLogicServiceImpl implements GameLogicService {
 
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
-				if(word.toUpperCase().contentEquals(line)) {
+				if(word.toUpperCase(Locale.US).contentEquals(line)) {
 					scanner.close();
 					return true;
 				}
@@ -530,7 +545,7 @@ public class GameLogicServiceImpl implements GameLogicService {
 			//log.info("In GameLogicService------- game before setting rack:"+game.toString());
 
 
-			if(player!=null && game!=null && (player.getRack().length()<7)) {
+			if(player!=null && game!=null && player.getRack().length()<7) {
 				StringBuilder localRack = new StringBuilder();
 				localRack.append(player.getRack());
 				for(int i=0; i<(7 - player.getRack().length()); i++) {
@@ -568,7 +583,7 @@ public class GameLogicServiceImpl implements GameLogicService {
 			characters.add(c);
 		}
 		StringBuilder output = new StringBuilder(input.length());
-		while(characters.size()!=0){
+		while(!characters.isEmpty()){
 			int randPicker = (int)(Math.random()*characters.size());
 			output.append(characters.remove(randPicker));
 		}
